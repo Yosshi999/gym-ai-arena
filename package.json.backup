@@ -1,0 +1,19 @@
+{
+  "name": "gym-ai-arena",
+  "version": "0.1.0",
+  "description": "Arena for Gym env",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yosshi999/gym-ai-arena.git"
+  },
+  "author": "yosshi999 <yosshi999.for.entry@gmail.com> (https://github.com/Yosshi999)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Yosshi999/gym-ai-arena/issues"
+  },
+  "homepage": "https://github.com/Yosshi999/gym-ai-arena#readme"
+}
