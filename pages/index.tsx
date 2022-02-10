@@ -12,12 +12,10 @@ type Props = {
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const contests: Contest[] = [];
-  for (let i = 0; i < 10; i++) {
-    contests.push({
-      id: i + 1,
-      description: `Go to the ${i + 1}-th contest page.`,
-    });
-  }
+  contests.push({
+    id: 1,
+    description: `Go to the first contest page.`,
+  });
   return {
     props: {
       contests,
