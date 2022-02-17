@@ -1,117 +1,53 @@
-import Head from 'next/head'
 import React from 'react'
-import { GetServerSideProps } from 'next'
+import { useContests } from '../lib/hooks'
 
-type Contest = {
+type ContestCard = {
   id: number;
+  name: string;
   description: string;
 }
 type Props = {
-  contests: Contest[];
+  contests: ContestCard[];
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const contests: Contest[] = [];
-  contests.push({
-    id: 1,
-    description: `Go to the first contest page.`,
-  });
-  return {
-    props: {
-      contests,
-    },
-  }
-}
+const Home: React.FC<Props> = () => {
+  const { data, loading } = useContests();
+  const contests = !loading
+    ? Object.values(data).map((contest) => ({
+        id: contest.id,
+        name: contest.name,
+        description: `${new Date(contest.startUnixTime).toString()} - ${new Date(contest.endUnixTime).toString()}`,
+      }))
+    : [];
 
-const Home: React.FC<Props> = ({ contests }) => {
   return (
-    <div className="container">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>
+      <h1 className="title">
+        Welcome to Gym-Arena!
+      </h1>
 
-      <main>
-        <h1 className="title">
-          Welcome to Gym-Arena!
-        </h1>
+      <p className="description">
+        description
+      </p>
 
-        <p className="description">
-          description
-        </p>
-
-        <div className="grid">
-          {
-            contests.map(({id, description}) => {
-              return (
-                <a
-                  href={`/contests/${id}`}
-                  className="card"
-                  key={id}
-                >
-                  <h3>Contest {id} &rarr;</h3>
-                  <p>{description}</p>
-                </a>
-              )
-            })
-          }
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className="logo" />
-        </a>
-      </footer>
+      <div className="grid">
+        {
+          contests.map(({ id, name, description }) => {
+            return (
+              <a
+                href={`/contests/${id}`}
+                className="card"
+                key={id}
+              >
+                <h3>{name} &rarr;</h3>
+                <p>{description}</p>
+              </a>
+            )
+          })
+        }
+      </div>
 
       <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer img {
-          margin-left: 0.5rem;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
         .title a {
           color: #0070f3;
           text-decoration: none;
@@ -199,22 +135,7 @@ const Home: React.FC<Props> = ({ contests }) => {
           }
         }
       `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
+    </>
   )
 }
 

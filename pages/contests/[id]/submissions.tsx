@@ -2,8 +2,6 @@ import axios from 'axios'
 import React from 'react'
 import { Table } from 'react-bootstrap'
 
-import Header from '../../../components/Header'
-
 type Submission = {
   code: string;
   createdAt: number;
@@ -21,12 +19,7 @@ export const getServerSideProps = async () => {
 class Submissions extends React.Component<Props> {
   render() {
     return (
-      <div>
-        <Header
-          title="Contest 1"
-          contestId="1"
-          active="submissions"
-        />
+      <>
         <h3>Submissions</h3>
         <Table striped bordered hover>
           <thead>
@@ -53,7 +46,7 @@ class Submissions extends React.Component<Props> {
           <textarea name="code" rows={10} cols={80} />
           <input type="submit" value="Submit" />
         </form>
-      </div>
+      </>
     )
   }
 }
